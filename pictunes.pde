@@ -9,8 +9,18 @@ PImage img;
 CellGrid cellGrid;
 int cellSize = 32;
 
+int fps = 60;
+int bpm = 100;
+int fp32;
+
 void setup()
 {
+    fp32 = round(((1.0/bpm) * 60.0f * fps)/8.0f);
+    if(fp32 < 1)
+    {
+        print("bpm is too high\n");
+        exit();
+    }
     //img = loadImage("image.jpg");
     //size(img.width, img.height);
     midiEngine = new MidiEngine();
@@ -20,6 +30,7 @@ void setup()
     img = loadImage("image.jpg");
     size(img.width, img.height);
     
+    frameRate(fps);
     // image stuff here //
     renderer = new Renderer();
     imageProcessor = new ImageProcessor();
