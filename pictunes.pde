@@ -20,13 +20,13 @@ int state;
 GUI gui;
 
 static ArrayList<Integer> theScale;
-String thePath = "image.jpg";
+String thePath = "oak.jpg";
 
 void setup()
 {
     //selectInput("Select an image to process: ", "imageChosen");
     setupImage();
-    theScale = Scales.pentaMin;
+    theScale = Scales.dorian;
 
     fp32 = round(((1.0/bpm) * 60.0f * fps)/8.0f);
     if(fp32 < 1)
