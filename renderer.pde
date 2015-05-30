@@ -4,6 +4,22 @@ class Renderer
     {
     }
 
+    void renderMenuGUI(GUI gui, boolean imgSelected)
+    {
+        stroke(gui.mColor1);
+        fill(gui.mColor2);
+
+        if(imgSelected)
+        {
+            rect((width - gui.mButtonWidth) / 2.0f, (height / 2.0f) - gui.mButtonHeight, gui.mButtonWidth, gui.mButtonHeight);
+            rect((width - gui.mButtonWidth) / 2.0f, height - gui.mButtonHeight, gui.mButtonWidth, gui.mButtonHeight);
+        }
+        else
+        {
+            rect((width - gui.mButtonWidth) / 2.0f, (height - gui.mButtonHeight) / 2.0f, gui.mButtonWidth, gui.mButtonHeight);
+        }
+    }
+
     void renderCellGrid(CellGrid cg)
     {
         int cellSize = cg.mCellSize;

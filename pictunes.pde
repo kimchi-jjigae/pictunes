@@ -4,6 +4,8 @@ MidiEngine midiEngine;
 Renderer renderer;
 ImageProcessor imageProcessor;
 PImage img;
+boolean imageSelected;
+String imagePath;
 CellGrid cellGrid;
 int cellSize = 32;
 
@@ -15,6 +17,7 @@ int bpm = 100;
 int fp32;
 
 int state;
+GUI gui;
 
 void setup()
 {
@@ -26,13 +29,18 @@ void setup()
     }
     midiEngine = new MidiEngine();
     renderer = new Renderer();
+    gui = new GUI();
 
-    setupImage();
-
+    imageSelected = false;
     frameRate(fps);
     ellipseMode(CORNER);
     noStroke();
-    state = STATE_SPLASH;
+    size(640, 420);
+    if(frame != null)
+    {
+        frame.setResizable(true);
+    }
+    state = STATE_MENU;
 
     bugs = new ArrayList<Bug>();
 }
@@ -46,9 +54,11 @@ void draw()
             break;
         case STATE_MENU:
             background(80, 50, 100);
+            //renderer.renderMenuGUI(gui, imageSelected);
             break;
         case STATE_LOADING:
             background(200, 170, 100);
+            setupImage();
             break;
         case STATE_PLAY:
             image(img, 0, 0);
@@ -82,7 +92,14 @@ void mouseClicked()
             state++;
             break;
         case STATE_MENU:
-            state++;
+            if(imageSelected)
+            {
+                state++;
+            }
+            else
+            {
+                selectInput("Select an image to process: ", "imageChosen");
+            }
             break;
         case STATE_LOADING:
             state++;
@@ -99,10 +116,24 @@ void mouseClicked()
 
 void setupImage()
 {
-    img = loadImage("image.jpg");
+    img = loadImage(imagePath);
     int w = (img.width  / cellSize) * cellSize; // cropping the image
     int h = (img.height / cellSize) * cellSize;
-    size(w, h);
+    frame.setSize(w, h);
     imageProcessor = new ImageProcessor();
     cellGrid = imageProcessor.gridifyImage(img, cellSize);
+}
+
+void imageChosen(File selection)
+{
+    if(selection == null)
+    {
+        print("nothing selected\n");
+    }
+    else
+    {
+        print("User selected " + selection.getAbsolutePath() + "\n");
+        imagePath = selection.getAbsolutePath();
+        imageSelected = true;
+    }
 }
