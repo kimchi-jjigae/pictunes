@@ -32,11 +32,11 @@ void draw()
 
     if(frameCount % 60 == 0)
     {
-        midiEngine.playNote(30, pianoChannel, 12, 15);
+        midiEngine.playNote(getPitch(0, -1, Scales.dorian), pianoChannel, 12, 15);
     }
-    if(counter % 30 == 0)
+    if(frameCount % 30 == 0)
     {
-        midiEngine.playNote(46, marimbaChannel, 12, 15);
+        midiEngine.playNote(getPitch(2, 0, Scales.dorian), marimbaChannel, 12, 15);
     }
 
     renderer.renderCellGrid(cellGrid);
