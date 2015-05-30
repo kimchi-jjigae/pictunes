@@ -20,6 +20,7 @@ int state;
 GUI gui;
 
 static ArrayList<Integer> theScale;
+String thePath = "image.jpg";
 
 void setup()
 {
@@ -122,7 +123,7 @@ void mouseClicked()
 
 void setupImage()
 {
-    img = loadImage("image.jpg");
+    img = loadImage(thePath);
     int w = (img.width  / cellSize) * cellSize; // cropping the image
     int h = (img.height / cellSize) * cellSize;
     //frame.setSize(w, h);
