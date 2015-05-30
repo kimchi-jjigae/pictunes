@@ -94,9 +94,9 @@ void mouseClicked()
         case STATE_PLAY:
             float x = (mouseX / cellSize);
             float y = (mouseY / cellSize);
-            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, WOOD_BASS, -1, RED, GREEN, BLUE, -1)); // bass
-            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, RHODES,  0, GREEN, BLUE, RED,  0)); // mid
-            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, JAZZ_GUITAR, +1, BLUE, RED, GREEN, +1)); // upper
+            bugs.add(new Bug((new PVector(x, y)), renderer, midiEngine, cellGrid, WOOD_BASS, -1, RED, GREEN, BLUE, -1)); // bass
+            bugs.add(new Bug((new PVector(x, y)), renderer, midiEngine, cellGrid, RHODES,  0, GREEN, BLUE, RED,  0)); // mid
+            bugs.add(new Bug((new PVector(x, y)), renderer, midiEngine, cellGrid, JAZZ_GUITAR, +1, BLUE, RED, GREEN, +1)); // upper
             break;
     }
 }
