@@ -85,7 +85,7 @@ class Bug
             else if(mPitchColor == BLUE)
                 animationColor = color(70, 130, 180);
 
-            mRenderer.addNotePlayAnimation(animationColor, (int)nextCellPosition.x, (int)nextCellPosition.y);
+            mRenderer.addNotePlayAnimation(animationColor, (int)nextCellPosition.x, (int)nextCellPosition.y, mCellGrid.mCellSize);
 
             mMidiEngine.playNote(getPitch(pitchNumber, mOctave, theScale), mChannel, duration, strength);
         }

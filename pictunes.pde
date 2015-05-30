@@ -70,6 +70,7 @@ void draw()
 
             renderer.renderCellGrid(cellGrid);
             renderer.renderBugs(bugs, cellSize);
+            renderer.renderAnimations(cellSize);
             for(int i = 0; i < bugs.size(); ++i)
             {
                 bugs.get(i).move();
