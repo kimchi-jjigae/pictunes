@@ -129,8 +129,9 @@ class Bug
             turning = BACKWARD;
         }
 
-        int newDir = directionAfterTurning(mDirectionColor, turning);
-        newDir = alive ? newDir : mDirection;
+        turning = alive ? turning : FORWARD;
+        int newDir = directionAfterTurning(mDirection, turning);
+        print("old:" + mDirectionColor + " new: " + newDir + "\n");
 
         int xValue = int(mCurrentPosition.x);
         int yValue = int(mCurrentPosition.y);
@@ -140,7 +141,7 @@ class Bug
             if(yValue == 0)
             {
                 yValue++;
-                newDir = BACKWARD;
+                newDir = 2;
             }
             else
             {
@@ -152,7 +153,7 @@ class Bug
             if(xValue == mCellGrid.mGridWidth - 1)
             {
                 xValue--;
-                newDir = BACKWARD;
+                newDir = 3;
             }
             else
             {
@@ -164,7 +165,7 @@ class Bug
             if(yValue == mCellGrid.mGridHeight - 1)
             {
                 yValue--;
-                newDir = BACKWARD;
+                newDir = 0;
             }
             else
             {
@@ -176,7 +177,7 @@ class Bug
             if(xValue == 0)
             {
                 xValue++;
-                newDir = BACKWARD;
+                newDir = 1;
             }
             else
             {
