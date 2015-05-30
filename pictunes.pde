@@ -39,11 +39,11 @@ void setup()
     frameRate(fps);
     ellipseMode(CORNER);
     noStroke();
-    size(640, 420);
-    if(frame != null)
-    {
-        frame.setResizable(true);
-    }
+    //size(640, 420);
+//if(frame != null)
+//{
+//frame.setResizable(true);
+//}
     state = STATE_MENU;
 
     bugs = new ArrayList<Bug>();
@@ -123,7 +123,8 @@ void setupImage()
     img = loadImage(imagePath);
     int w = (img.width  / cellSize) * cellSize; // cropping the image
     int h = (img.height / cellSize) * cellSize;
-    frame.setSize(w, h);
+    //frame.setSize(w, h);
+    size(w, h);
     imageProcessor = new ImageProcessor();
     cellGrid = imageProcessor.gridifyImage(img, cellSize);
 }
