@@ -1,5 +1,6 @@
 MidiEngine midiEngine;
 int pianoChannel;
+int marimbaChannel;
 
 // image stuff here //
 ImageProcessor imageProcessor;
@@ -13,6 +14,7 @@ void setup()
     //size(img.width, img.height);
     midiEngine = new MidiEngine();
     pianoChannel = midiEngine.addChannel(GRAND_PIANO);
+    marimbaChannel = midiEngine.addChannel(MARIMBA);
 
     img = loadImage("image.jpg");
     size(img.width, img.height);
@@ -32,7 +34,11 @@ void draw()
 
     if(counter % 60 == 0)
     {
-        midiEngine.playNote(30, pianoChannel, 12);
+        midiEngine.playNote(30, pianoChannel, 12, 15);
+    }
+    if(counter % 30 == 0)
+    {
+        midiEngine.playNote(46, marimbaChannel, 12, 15);
     }
 }
 
