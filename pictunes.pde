@@ -5,7 +5,7 @@ Renderer renderer;
 ImageProcessor imageProcessor;
 PImage img;
 CellGrid cellGrid;
-int cellSize = 16;
+int cellSize = 64;
 
 // bugs //
 ArrayList<Bug> bugs;
@@ -31,6 +31,7 @@ void setup()
     int h = (img.height / cellSize) * cellSize;
     size(w, h);
     ellipseMode(CORNER);
+    noStroke();
     
     frameRate(fps);
     // image stuff here //
@@ -43,7 +44,7 @@ void setup()
 
 void draw()
 {
-    background(0);
+    image(img, 0, 0);
     midiEngine.update();
 
     renderer.renderCellGrid(cellGrid);

@@ -26,7 +26,7 @@ class Bug
 
         mCurrentPosition = initialPosition;
         Cell cell = mCellGrid.getCell((int)mCurrentPosition.x, (int)mCurrentPosition.y);
-        mTargetPosition = calculatePosition(cell.mColor, false);
+        mTargetPosition = calculatePosition(cell.mColor, true);
 
         mChannel = midiEngine.addChannel(instrument);
         mOctave = octave;

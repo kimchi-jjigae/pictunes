@@ -8,6 +8,7 @@ class Renderer
     {
         int cellSize = cg.mCellSize;
         ArrayList<Cell> cells = cg.mCells;
+        noStroke();
         for(int i = 0; i < cells.size(); ++i)
         {
             color squareColor = cells.get(i).mColor;
@@ -21,7 +22,9 @@ class Renderer
     {
         for(int i = 0; i < bugs.size(); ++i)
         {
-            fill(20, 150, 60);
+            fill(0);
+            stroke(255);
+            strokeWeight(10);
             Bug temp = bugs.get(i);
             PVector coords = temp.getInterpolatedCoordinates(cellSize);
             ellipse(coords.x, coords.y, cellSize, cellSize);
