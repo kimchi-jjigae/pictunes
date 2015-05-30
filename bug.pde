@@ -64,7 +64,7 @@ class Bug
         mCurrentPosition = mTargetPosition;
 
         int pitchNumber = calculatePitch(nextCell.mColor);
-        int duration = calculateDuration(nextCell.mColor);
+        int duration = calculateDuration(nextCell.mNeighborDifference);
         int strength = calculateStrength(nextCell.mColorAverage);
 
         mTargetPosition = calculatePosition(nextCell.mColor, nextCell.isAlive());
@@ -209,9 +209,9 @@ class Bug
         return (int)(channelColor / 4) % 16;
     }
 
-    int calculateDuration(color cellColor)
+    int calculateDuration(int neighborDiff)
     {
-        return 60; // DUMMY VALUE
+        return lengthToThirtySeconds((int)(neighborDiff / 43) + mTempoOffset) * fp32;
     }
 
     int calculateStrength(int cellAverageColor)
