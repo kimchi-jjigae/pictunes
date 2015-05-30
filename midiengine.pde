@@ -26,9 +26,9 @@ class MidiEngine
         return newChannelId;
     }
 
-    void playNote(int pitch, int channel, int duration)
+    void playNote(int pitch, int channel, int duration, int strength)
     {
-        int velocity = 127;
+        int velocity = 37 + strength * 6;
 
         Note note = new Note();
         note.velocity = velocity;
