@@ -1,7 +1,7 @@
 class NotePlayAnimation
 {
     color col;
-    int ttl;
+    float size;
     int x;
     int y;
 };
@@ -45,6 +45,7 @@ class Renderer
 
     void renderBugs(ArrayList<Bug> bugs, int cellSize)
     {
+        ellipseMode(CORNER);
         for(int i = 0; i < bugs.size(); ++i)
         {
             fill(0);
@@ -56,11 +57,32 @@ class Renderer
         }
     }
 
-    void addNotePlayAnimation(color animationColor, int x, int y)
+    void renderAnimations(int cellSize)
+    {
+        float maxSize = cellSize * 3.0f;
+        float halfCell = cellSize / 2.0f;
+        ellipseMode(CENTER);
+        noFill();
+        strokeWeight(2);
+        for(int i = 0; i < mNoteAnimations.size(); ++i)
+        {
+            NotePlayAnimation anim = mNoteAnimations.get(i);
+            stroke(anim.col, 150);
+            ellipse(((float)anim.x + 0.5f) * cellSize, ((float)anim.y + 0.5f) * cellSize, anim.size, anim.size);
+            anim.size += 1.0f;
+            if(anim.size > maxSize)
+            {
+                mNoteAnimations.remove(i);
+                --i;
+            }
+        }
+    }
+
+    void addNotePlayAnimation(color animationColor, int x, int y, int cellSize)
     {
         NotePlayAnimation newNoteAnimation = new NotePlayAnimation();
         newNoteAnimation.col = animationColor;
-        newNoteAnimation.ttl = 30;
+        newNoteAnimation.size = cellSize;
         newNoteAnimation.x = x;
         newNoteAnimation.y = y;
 
