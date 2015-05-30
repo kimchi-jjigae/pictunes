@@ -1,15 +1,25 @@
 import themidibus.*; // must be in libraries folder
 
-PImage img;
-
+// midi stuff here //
 MidiBus myBus;
+
+// image stuff here //
+ImageProcessor imageProcessor;
+PImage img;
+CellGrid cellGrid;
+int gridSize = 32;
 
 void setup()
 {
     img = loadImage("image.jpg");
     size(img.width, img.height);
-
+    
+    // midi stuff here //
     myBus = new MidiBus(this, 0, 1);
+
+    // image stuff here //
+    imageProcessor = new ImageProcessor();
+    cellGrid = imageProcessor.gridifyImage(img);
 }
 
 void draw()
@@ -29,16 +39,6 @@ void draw()
 
     myBus.sendControllerChange(channel, number, value);
     delay(2000);
-}
-
-void noteOn(int channel, int pitch, int velocity) {
-  // Receive a noteOn
-  println();
-  println("Note On:");
-  println("--------");
-  println("Channel:"+channel);
-  println("Pitch:"+pitch);
-  println("Velocity:"+velocity);
 }
 
 void delay(int time) {
