@@ -121,8 +121,8 @@ void mouseClicked()
 void setupImage()
 {
     img = loadImage(imagePath);
-    int w = (img.width  / cellSize) * cellSize; // cropping the image
-    int h = (img.height / cellSize) * cellSize;
+    int w = int(img.width  / cellSize) * cellSize; // cropping the image
+    int h = int(img.height / cellSize) * cellSize;
     frame.setSize(w, h);
     imageProcessor = new ImageProcessor();
     cellGrid = imageProcessor.gridifyImage(img, cellSize);
