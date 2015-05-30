@@ -1,19 +1,19 @@
 class Cell
 {
     color mColor;
-    int mAverageColor;
+    int mColorAverage;
     color mRowColumnAverageColor;
     int mNeighborDifference;
 
     Cell(color col)
     {
         mColor = col;
-        mAverageColor = (int)((red(col) + green(col) + blue(col)) / 3);
+        mColorAverage = (int)((red(col) + green(col) + blue(col)) / 3);
     }
 
-    void setExtraData(color rowColumnAverage, int neighBorDifference)
+    void setExtraData(color rowColumnAverage, int neighborDifference)
     {
         mRowColumnAverageColor = rowColumnAverage;
-        mNeighborDifference = neighBorDifference;
+        mNeighborDifference = neighborDifference;
     }
 }
