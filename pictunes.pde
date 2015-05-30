@@ -5,7 +5,7 @@ Renderer renderer;
 ImageProcessor imageProcessor;
 PImage img;
 CellGrid cellGrid;
-int cellSize = 16;
+int cellSize = 32;
 
 // bugs //
 ArrayList<Bug> bugs;
