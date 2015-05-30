@@ -131,7 +131,6 @@ class Bug
 
         turning = alive ? turning : FORWARD;
         int newDir = directionAfterTurning(mDirection, turning);
-        print("old:" + mDirectionColor + " new: " + newDir + "\n");
 
         int xValue = int(mCurrentPosition.x);
         int yValue = int(mCurrentPosition.y);
