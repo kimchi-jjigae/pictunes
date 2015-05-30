@@ -38,30 +38,15 @@ class ImageProcessor // only for processing the image, no data stored here
                     }
                 }
 
-/*
-            print("// x, y = " + x + ", " + y + " //\n");
-
-            print("red value is: "   + redValue + "\n");
-            print("green value is: " + greenValue + "\n");
-            print("blue value is: "  + blueValue + "\n");
-            */
-
             redValue   = redValue   / (cellSize * cellSize);
             greenValue = greenValue / (cellSize * cellSize);
             blueValue  = blueValue  / (cellSize * cellSize);
-            /*
-            print("average red value is: "   + redValue + "\n");
-            print("average green value is: " + greenValue + "\n");
-            print("average blue value is: "  + blueValue + "\n");
-            
-            print("\n");
-            */
-            cells.add(new Cell(color(redValue, greenValue, blueValue)));
 
+            cells.add(new Cell(color(redValue, greenValue, blueValue)));
             }
         }
 
-        CellGrid hej = new CellGrid(cells, gridWidth, gridHeight);
+        CellGrid hej = new CellGrid(cells, gridWidth, gridHeight, cellSize);
         return hej;
     }
 }

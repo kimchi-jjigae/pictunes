@@ -1,14 +1,17 @@
 class CellGrid // all data stored here, no processing takes place
 {
     ArrayList<Cell> mCells;
-    int gridWidth;
-    int gridHeight;
+    int mGridWidth;
+    int mGridHeight;
+    int mCellSize;
 
-    CellGrid(ArrayList<Cell> cells, int w, int h)
+    CellGrid(ArrayList<Cell> cells, int w, int h, int cellSize)
     {
         mCells = cells;
 
-        gridWidth  = w;
-        gridHeight = h;
+        mGridWidth  = w;
+        mGridHeight = h;
+
+        mCellSize = cellSize;
     }
 }

@@ -2,6 +2,7 @@ MidiEngine midiEngine;
 int pianoChannel;
 
 // image stuff here //
+Renderer renderer;
 ImageProcessor imageProcessor;
 PImage img;
 CellGrid cellGrid;
@@ -18,22 +19,21 @@ void setup()
     size(img.width, img.height);
     
     // image stuff here //
+    renderer = new Renderer();
     imageProcessor = new ImageProcessor();
     cellGrid = imageProcessor.gridifyImage(img, cellSize);
 }
-
-int counter;
 
 void draw()
 {
     midiEngine.update();
 
-    counter++;
-
-    if(counter % 60 == 0)
+    if(frameCount % 60 == 0)
     {
         midiEngine.playNote(30, pianoChannel, 120);
     }
+
+    renderer.renderCellGrid(cellGrid);
 }
 
 void dispose()
