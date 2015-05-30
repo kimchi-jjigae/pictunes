@@ -5,6 +5,23 @@ int DULCIMER = 15;
 int WOOD_BASS = 32;
 int FINGERED_BASS = 33;
 
+int instrumentFromIndex(int i)
+{
+    if(i == 0)
+        return GRAND_PIANO;
+    else if(i == 1)
+        return HARPSICHORD;
+    else if(i == 2)
+        return MARIMBA;
+    else if(i == 3)
+        return DULCIMER;
+    else if(i == 4)
+        return WOOD_BASS;
+    else if(i == 5)
+        return FINGERED_BASS;
+    return GRAND_PIANO;
+}
+
 //NOTE: if you add instruments below to the enum, delete them from the lists
 
 //# Program  BritePno (gus britepno; old name: BritePiano)

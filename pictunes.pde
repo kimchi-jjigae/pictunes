@@ -1,13 +1,11 @@
 MidiEngine midiEngine;
-int pianoChannel;
-int marimbaChannel;
 
 // image stuff here //
 Renderer renderer;
 ImageProcessor imageProcessor;
 PImage img;
 CellGrid cellGrid;
-int cellSize = 32;
+int cellSize = 16;
 
 // bugs //
 ArrayList<Bug> bugs;
@@ -15,6 +13,8 @@ ArrayList<Bug> bugs;
 int fps = 60;
 int bpm = 100;
 int fp32;
+
+int bugAmount = 0;
 
 void setup()
 {
@@ -25,8 +25,6 @@ void setup()
         exit();
     }
     midiEngine = new MidiEngine();
-    pianoChannel = midiEngine.addChannel(GRAND_PIANO);
-    marimbaChannel = midiEngine.addChannel(MARIMBA);
 
     img = loadImage("image.jpg");
     int w = (img.width  / cellSize) * cellSize; // cropping the image
@@ -45,6 +43,7 @@ void setup()
 
 void draw()
 {
+    background(0);
     midiEngine.update();
 
     renderer.renderCellGrid(cellGrid);
@@ -69,5 +68,6 @@ void mouseClicked()
 {
     int x = (mouseX / cellSize);
     int y = (mouseY / cellSize);
-    bugs.add(new Bug((new PVector((float)x, (float)y)), midiEngine, cellGrid, MARIMBA, 0, GREEN, BLUE, RED, 0));
+    bugs.add(new Bug((new PVector((float)x, (float)y)), midiEngine, cellGrid, instrumentFromIndex(bugAmount), 0, GREEN, BLUE, RED, 0));
+    bugAmount++;
 }

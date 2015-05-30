@@ -18,6 +18,8 @@ class Bug
     int mTempoColor;
     int mTempoOffset;
 
+    int mLastDir;
+
     Bug(PVector initialPosition, MidiEngine midiEngine, CellGrid cellGrid, int instrument, int octave, int pitchColor, int dirColor, int tempoColor, int tempoOffset)
     {
         mChannel = midiEngine.addChannel(instrument);
@@ -31,7 +33,7 @@ class Bug
         mCellGrid = cellGrid;
 
         mCurrentPosition = initialPosition;
-        mTargetPosition = calculatePosition(mCellGrid.getCell((int)mCurrentPosition.x, (int)mCurrentPosition.y).mColor);
+        mTargetPosition = calculatePosition(mCellGrid.getCell((int)mCurrentPosition.x, (int)mCurrentPosition.y).mColor, false);
 
         mCounter = 0;
         mCounterTarget = 60; // ??? need to initialise these values depending on grid stuff
@@ -59,17 +61,21 @@ class Bug
         Cell nextCell = mCellGrid.getCell((int)mTargetPosition.x, (int)mTargetPosition.y);
 
         mCurrentPosition = mTargetPosition;
-        mTargetPosition = calculatePosition(nextCell.mColor);
 
         int pitchNumber = calculatePitch(nextCell.mColor);
         int duration = calculateDuration(nextCell.mColor);
         int strength = calculateStrength(nextCell.mColorAverage);
 
-        mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
+        mTargetPosition = calculatePosition(nextCell.mColor, nextCell.isAlive());
+
+        if(nextCell.isAlive())
+            mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
+        nextCell.damage();
+
         mCounter = 0;
     }
 
-    PVector calculatePosition(color cellColor)
+    PVector calculatePosition(color cellColor, boolean alive)
     {
         int channelColor = 0;
         if(mDirectionColor == RED)
@@ -85,7 +91,7 @@ class Bug
             channelColor = (int)blue(cellColor);
         }
         
-        int dir = channelColor % 4;
+        int dir = alive ? channelColor % 4 : mLastDir;
 
         int xValue = int(mCurrentPosition.x);
         int yValue = int(mCurrentPosition.y);
@@ -95,6 +101,7 @@ class Bug
             if(yValue == 0)
             {
                 yValue++;
+                dir = 2;
             }
             else
             {
@@ -106,6 +113,7 @@ class Bug
             if(xValue == mCellGrid.mGridWidth - 1)
             {
                 xValue--;
+                dir = 3;
             }
             else
             {
@@ -117,6 +125,7 @@ class Bug
             if(yValue == mCellGrid.mGridHeight - 1)
             {
                 yValue--;
+                dir = 0;
             }
             else
             {
@@ -128,12 +137,15 @@ class Bug
             if(xValue == 0)
             {
                 xValue++;
+                dir = 1;
             }
             else
             {
                 xValue--;
             }
         }
+
+        mLastDir = dir;
 
         return new PVector((float)xValue, (float)yValue);
     }
