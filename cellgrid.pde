@@ -14,4 +14,9 @@ class CellGrid // all data stored here, no processing takes place
 
         mCellSize = cellSize;
     }
+
+    Cell getCell(int x, int y)
+    {
+        return mCells.get(x + y * mGridWidth);
+    }
 }
