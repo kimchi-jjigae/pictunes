@@ -14,4 +14,15 @@ class Renderer
             rect((i % cg.mGridWidth) * cellSize, (i / cg.mGridWidth) * cellSize, cellSize, cellSize);
         }
     }
+
+    void renderBugs(ArrayList<Bug> bugs, int cellSize)
+    {
+        for(int i = 0; i < bugs.size(); ++i)
+        {
+            fill(0);
+            Bug temp = bugs.get(i);
+            PVector coords = temp.getInterpolatedCoordinates(cellSize);
+            ellipse(coords.x, coords.y, cellSize, cellSize);
+        }
+    }
 }
