@@ -73,7 +73,7 @@ class Bug
         mTargetPosition = calculatePosition(nextCell.mColor, nextCell.isAlive());
 
         if(nextCell.isAlive())
-            mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
+            mMidiEngine.playNote(getPitch(pitchNumber, mOctave, theScale), mChannel, duration, strength);
         nextCell.damage();
 
         mCounter = 0;
@@ -245,5 +245,18 @@ class Bug
         }
 
         return lengthToThirtySeconds((int)(channelColor / 43) + mTempoOffset) * fp32;
+    }
+
+    color renderColor()
+    {
+        color toReturn = 0;
+        if(mPitchColor == RED)
+            toReturn = color(178, 34, 34);
+        else if(mPitchColor == GREEN)
+            toReturn = color(34, 139, 34);
+        else if(mPitchColor == BLUE)
+            toReturn = color(70, 130, 180);
+
+        return toReturn;
     }
 }
