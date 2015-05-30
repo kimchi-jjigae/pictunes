@@ -1,35 +1,35 @@
-import themidibus.*; // must be in libraries folder
-
 PImage img;
 
-MidiBus myBus;
+MidiEngine midiEngine;
+int pianoChannel;
 
 void setup()
 {
-    img = loadImage("image.jpg");
-    size(img.width, img.height);
-
-    myBus = new MidiBus(this, 0, 1);
+    //img = loadImage("image.jpg");
+    //size(img.width, img.height);
+    midiEngine = new MidiEngine();
+    pianoChannel = midiEngine.addChannel(GRAND_PIANO);
 }
+
+int counter;
 
 void draw()
 {
-    int channel = 0;
-    int pitch = 64;
-    int velocity = 127;
+    midiEngine.update();
 
-    image(img, 0, 0);
+    counter++;
 
-    myBus.sendNoteOn(channel, pitch, velocity);
-    delay(200);
-    myBus.sendNoteOff(channel, pitch, velocity);
-
-    int number = 0;
-    int value = 90;
-
-    myBus.sendControllerChange(channel, number, value);
-    delay(2000);
+    if(counter % 60 == 0)
+    {
+        midiEngine.playNote(30, pianoChannel, 120);
+    }
 }
+
+void dispose()
+{
+    print("now stopping");
+    midiEngine.silenceAll();
+} 
 
 void noteOn(int channel, int pitch, int velocity) {
   // Receive a noteOn
