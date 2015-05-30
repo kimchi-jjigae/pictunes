@@ -2,26 +2,48 @@ class Bug
 {
     PVector mCurrentPosition; // in grid coordinates
     PVector mTargetPosition;
-    int counter;
-    int counterTarget;
+    int mCounter;
+    int mCounterTarget;
+    MidiEngine mMidiEngine;
+    CellGrid mCellGrid;
 
-    Bug(PVector initialPosition)
+    Bug(PVector initialPosition, MidiEngine midiEngine, CellGrid cellGrid)
     {
+        mMidiEngine = midiEngine;
+        mCellGrid = cellGrid;
+
         mCurrentPosition = initialPosition;
         mTargetPosition = initialPosition; // ???
 
-        counter = 0;
-        counterTarget = 30; // ??? need to initialise these values depending on grid stuff
+        mCounter = 0;
+        mCounterTarget = 30; // ??? need to initialise these values depending on grid stuff
     }
 
     PVector getInterpolatedCoordinates(int cellSize)
     {
-        return new PVector(0.0f, 0.0f);
+        float percentage = mCounter / (float)mCounterTarget;
+        PVector temp = PVector.lerp(mCurrentPosition, mTargetPosition, percentage);
+        temp.mult(cellSize);
+        return temp;
     }
 
     void move()
     {
-        counter++;
-        // update position?
+        mCounter++;
+        if(mCounter == mCounterTarget)
+        {
+            playNote();
+            updateTargetPosition();
+        }
+    }
+
+    void playNote()
+    {
+    }
+    
+    void updateTargetPosition()
+    {
+        mCurrentPosition = mTargetPosition;
+        //Cell nextCell = mCellGrid.getCell(mTargetPosition.x, mTargetPosition.y);
     }
 }
