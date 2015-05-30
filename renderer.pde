@@ -1,7 +1,16 @@
+class NotePlayAnimation
+{
+    color col;
+    int ttl;
+    int x;
+    int y;
+};
+
 class Renderer
 {
     Renderer()
     {
+        mNoteAnimations = new ArrayList<NotePlayAnimation>();
     }
 
     void renderMenuGUI(GUI gui, boolean imgSelected)
@@ -46,4 +55,17 @@ class Renderer
             ellipse(coords.x, coords.y, cellSize, cellSize);
         }
     }
+
+    void addNotePlayAnimation(color animationColor, int x, int y)
+    {
+        NotePlayAnimation newNoteAnimation = new NotePlayAnimation();
+        newNoteAnimation.col = animationColor;
+        newNoteAnimation.ttl = 30;
+        newNoteAnimation.x = x;
+        newNoteAnimation.y = y;
+
+        mNoteAnimations.add(newNoteAnimation);
+    }
+
+    ArrayList<NotePlayAnimation> mNoteAnimations;
 }

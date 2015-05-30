@@ -10,6 +10,7 @@ class Bug
     int mCounterTarget;
     MidiEngine mMidiEngine;
     CellGrid mCellGrid;
+    Renderer mRenderer;
 
     int mChannel;
     int mOctave;
@@ -21,10 +22,11 @@ class Bug
 
     int mLastCounter;
 
-    Bug(PVector initialPosition, MidiEngine midiEngine, CellGrid cellGrid, int instrument, int octave, int pitchColor, int dirColor, int tempoColor, int tempoOffset)
+    Bug(PVector initialPosition, Renderer renderer, MidiEngine midiEngine, CellGrid cellGrid, int instrument, int octave, int pitchColor, int dirColor, int tempoColor, int tempoOffset)
     {
         mMidiEngine = midiEngine;
         mCellGrid = cellGrid;
+        mRenderer = renderer;
 
         mCurrentPosition = initialPosition;
         Cell cell = mCellGrid.getCell((int)mCurrentPosition.x, (int)mCurrentPosition.y);
@@ -62,6 +64,7 @@ class Bug
 
     void updatePosition()
     {
+        PVector nextCellPosition = mTargetPosition;
         Cell nextCell = mCellGrid.getCell((int)mTargetPosition.x, (int)mTargetPosition.y);
 
         mCurrentPosition = mTargetPosition;
@@ -73,7 +76,19 @@ class Bug
         mTargetPosition = calculatePosition(nextCell.mColor, nextCell.isAlive());
 
         if(nextCell.isAlive())
+        {
+            color animationColor = 0;
+            if(mPitchColor == RED)
+                animationColor = color(178, 34, 34);
+            else if(mPitchColor == GREEN)
+                animationColor = color(34, 139, 34);
+            else if(mPitchColor == BLUE)
+                animationColor = color(70, 130, 180);
+
+            mRenderer.addNotePlayAnimation(animationColor, (int)nextCellPosition.x, (int)nextCellPosition.y);
+
             mMidiEngine.playNote(getPitch(pitchNumber, mOctave, theScale), mChannel, duration, strength);
+        }
         nextCell.damage();
 
         mCounter = 0;
