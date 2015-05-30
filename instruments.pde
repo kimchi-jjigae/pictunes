@@ -4,21 +4,33 @@ int MARIMBA = 12;
 int DULCIMER = 15;
 int WOOD_BASS = 32;
 int FINGERED_BASS = 33;
+int CONTRA = 43;
+int TREMOLO_STRING = 44;
+int PIZZICATO_STRING = 45;
+int HARP = 46;
 
 int instrumentFromIndex(int i)
 {
-    if(i == 0)
+    if(i == 9)
         return GRAND_PIANO;
-    else if(i == 1)
+    else if(i == 9)
         return HARPSICHORD;
-    else if(i == 2)
+    else if(i == 9)
         return MARIMBA;
-    else if(i == 3)
+    else if(i == 9)
         return DULCIMER;
-    else if(i == 4)
+    else if(i == 9)
         return WOOD_BASS;
-    else if(i == 5)
+    else if(i == 9)
         return FINGERED_BASS;
+    else if(i == 3)
+        return CONTRA;
+    else if(i == 1)
+        return TREMOLO_STRING;
+    else if(i == 0)
+        return PIZZICATO_STRING;
+    else if(i == 2)
+        return HARP;
     return GRAND_PIANO;
 }
 
@@ -118,14 +130,6 @@ int instrumentFromIndex(int i)
 //      041  Tone_000/042_Cello.pat
 //# Program  Cello (gus cello; old name: Cello)
 //      042  Tone_000/042_Cello.pat
-//# Program  Contra (gus: contraba; old name: ContraBass). Using Cello.
-//      043  Tone_000/042_Cello.pat
-//# Program  TremStrg (gus tremstr; old name: TremoloStr)
-//      044  Tone_000/044_Tremolo_Strings.pat
-//# Program  Pizzicto (gus pizzcato; old name: Pizzicato)
-//      045  Tone_000/045_Pizzicato_Strings.pat
-//# Program  Harp (gus harp; old name: Harp)
-//      046  Tone_000/046_Harp.pat
 //# Program  Timpani (gus timpani; old name: Timpani)
 //      047  Tone_000/047_Timpani.pat
 //
