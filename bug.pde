@@ -74,6 +74,7 @@ class Bug
         nextCell.damage();
 
         mCounter = 0;
+        mCounterTarget = calculateCounter(nextCell.mColor);
     }
 
     int calculateInitialDirection(color cellColor)
@@ -233,7 +234,7 @@ class Bug
         {
             channelColor = (int)blue(cellColor);
         }
-        
+
         return lengthToThirtySeconds((int)(channelColor / 43) + mTempoOffset) * fp32;
     }
 }
