@@ -10,7 +10,9 @@ class Renderer
         ArrayList<Cell> cells = cg.mCells;
         for(int i = 0; i < cells.size(); ++i)
         {
-            fill(cells.get(i).mColor);
+            //fill(cells.get(i).mColor);
+            int avg = cells.get(i).mNeighborDifference;
+            fill(color(avg));
             rect((i % cg.mGridWidth) * cellSize, (i / cg.mGridWidth) * cellSize, cellSize, cellSize);
         }
     }

@@ -60,6 +60,7 @@ class ImageProcessor // only for processing the image, no data stored here
             {
                 //row col avg
                 Cell toSet = grid.getCell(x, y);
+                color toSetColor = toSet.mColor;
 
                 int redAccumulator = 0;
                 int greenAccumulator = 0;
@@ -84,9 +85,55 @@ class ImageProcessor // only for processing the image, no data stored here
                 color rowColumnAverageColor = color(redAccumulator / amount, greenAccumulator / amount, blueAccumulator / amount);
 
                 //neighbor diff       
-                int neighBorDifference = 0;
+                int neighborRedAccumulator = 0;                              
+                int neighborGreenAccumulator = 0;                              
+                int neighborBlueAccumulator = 0;                              
 
-                toSet.setExtraData(rowColumnAverageColor, neighBorDifference);
+                int neighborCount = 0;
+
+                if(x > 0)
+                {
+                    color cellColor = grid.getCell(x - 1, y).mColor;
+                    neighborRedAccumulator += red(cellColor);
+                    neighborGreenAccumulator += green(cellColor);
+                    neighborBlueAccumulator += blue(cellColor);
+                    neighborCount++;
+                }
+                else if(x < gridWidth - 1)
+                {
+                    color cellColor = grid.getCell(x + 1, y).mColor;
+                    neighborRedAccumulator += red(cellColor);
+                    neighborGreenAccumulator += green(cellColor);
+                    neighborBlueAccumulator += blue(cellColor);
+                    neighborCount++;
+                }
+                else if(y > 0)
+                {
+                    color cellColor = grid.getCell(x, y - 1).mColor;
+                    neighborRedAccumulator += red(cellColor);
+                    neighborGreenAccumulator += green(cellColor);
+                    neighborBlueAccumulator += blue(cellColor);
+                    neighborCount++;
+                }
+                else if(y < gridHeight - 1)
+                {
+                    color cellColor = grid.getCell(x, y + 1).mColor;
+                    neighborRedAccumulator += red(cellColor);
+                    neighborGreenAccumulator += green(cellColor);
+                    neighborBlueAccumulator += blue(cellColor);
+                    neighborCount++;
+                }
+
+                color neighborColorAverage = color(neighborRedAccumulator / neighborCount, neighborGreenAccumulator / neighborCount, neighborBlueAccumulator / neighborCount);
+
+                int redDifference = (int)abs(red(neighborColorAverage) - red(toSetColor));
+                int greenDifference = (int)abs(green(neighborColorAverage) - green(toSetColor));
+                int blueDifference = (int)abs(blue(neighborColorAverage) - blue(toSetColor));
+                int totalDifference = redDifference + greenDifference + blueDifference;
+
+                int neighborDifference = (int)(((redDifference + greenDifference + blueDifference) / (3.0f)));
+
+                toSet.setExtraData(rowColumnAverageColor, neighborDifference);
             }
         }
         return grid;
