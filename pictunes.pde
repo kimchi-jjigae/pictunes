@@ -20,7 +20,7 @@ static ArrayList<Integer> theScale;
 
 void setup()
 {
-    theScale = Scales.dorian;
+    theScale = Scales.pentaMin;
 
     fp32 = round(((1.0/bpm) * 60.0f * fps)/8.0f);
     if(fp32 < 1)
