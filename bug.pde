@@ -19,6 +19,8 @@ class Bug
     int mTempoColor;
     int mTempoOffset;
 
+    int mLastCounter;
+
     Bug(PVector initialPosition, MidiEngine midiEngine, CellGrid cellGrid, int instrument, int octave, int pitchColor, int dirColor, int tempoColor, int tempoOffset)
     {
         mMidiEngine = midiEngine;
@@ -38,6 +40,7 @@ class Bug
 
         mCounter = 0;
         mCounterTarget = calculateCounter(cell.mColor); // ??? need to initialise these values depending on grid stuff
+        mLastCounter = mCounterTarget;
     }
 
     PVector getInterpolatedCoordinates(int cellSize)
@@ -74,7 +77,13 @@ class Bug
         nextCell.damage();
 
         mCounter = 0;
-        mCounterTarget = calculateCounter(nextCell.mColor);
+        if(nextCell.isAlive())
+        {
+            mCounterTarget = calculateCounter(nextCell.mColor);
+            mLastCounter = mCounterTarget;
+        }
+        else
+            mCounterTarget = mLastCounter;
     }
 
     int calculateInitialDirection(color cellColor)
