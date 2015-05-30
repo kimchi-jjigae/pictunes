@@ -78,5 +78,5 @@ void mouseClicked()
 {
     int x = (mouseX / cellSize);
     int y = (mouseY / cellSize);
-    bugs.add(new Bug(new PVector((float)x, (float)y)));
+    bugs.add(new Bug((new PVector((float)x, (float)y)), midiEngine, cellGrid));
 }
