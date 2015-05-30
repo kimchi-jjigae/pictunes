@@ -56,11 +56,9 @@ class MidiEngine
             if(ttl <= 0)
             {
                 toDelete.add((Integer)entry.getKey());
-                print("note ttl is now %d\n", ttl);
             }
             else
             {
-                print("note ttl is now %d\n", ttl);
                 note.ttl = ttl;
             }
         }
@@ -77,12 +75,10 @@ class MidiEngine
         Note noteToDelete = mPlayingNotes.get(channel);
         mMidiBus.sendNoteOff(channel, noteToDelete.pitch, noteToDelete.velocity);
         mPlayingNotes.remove(channel);
-        print("shuttong off note");
     }
 
     void silenceAll()
     {
-        print("will silence all");
         ArrayList<Integer> toDelete = new ArrayList<Integer>();
 
         for(Map.Entry entry : mPlayingNotes.entrySet())

@@ -1,7 +1,11 @@
-PImage img;
-
 MidiEngine midiEngine;
 int pianoChannel;
+
+// image stuff here //
+ImageProcessor imageProcessor;
+PImage img;
+CellGrid cellGrid;
+int gridSize = 32;
 
 void setup()
 {
@@ -9,6 +13,13 @@ void setup()
     //size(img.width, img.height);
     midiEngine = new MidiEngine();
     pianoChannel = midiEngine.addChannel(GRAND_PIANO);
+
+    img = loadImage("image.jpg");
+    size(img.width, img.height);
+    
+    // image stuff here //
+    imageProcessor = new ImageProcessor();
+    cellGrid = imageProcessor.gridifyImage(img);
 }
 
 int counter;
@@ -27,19 +38,8 @@ void draw()
 
 void dispose()
 {
-    print("now stopping");
     midiEngine.silenceAll();
 } 
-
-void noteOn(int channel, int pitch, int velocity) {
-  // Receive a noteOn
-  println();
-  println("Note On:");
-  println("--------");
-  println("Channel:"+channel);
-  println("Pitch:"+pitch);
-  println("Velocity:"+velocity);
-}
 
 void delay(int time) {
   int current = millis();
