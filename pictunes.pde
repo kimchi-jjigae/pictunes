@@ -14,8 +14,6 @@ int fps = 60;
 int bpm = 100;
 int fp32;
 
-int bugAmount = 0;
-
 void setup()
 {
     fp32 = round(((1.0/bpm) * 60.0f * fps)/8.0f);
@@ -67,8 +65,9 @@ void delay(int time) {
 
 void mouseClicked()
 {
-    int x = (mouseX / cellSize);
-    int y = (mouseY / cellSize);
-    bugs.add(new Bug((new PVector((float)x, (float)y)), midiEngine, cellGrid, instrumentFromIndex(bugAmount), 0, GREEN, BLUE, RED, 0));
-    bugAmount++;
+    float x = (mouseX / cellSize);
+    float y = (mouseY / cellSize);
+    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()), -1, RED, GREEN, BLUE, -1));
+    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()),  0, GREEN, BLUE, RED,  0));
+    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()), +1, BLUE, RED, GREEN, +1));
 }
