@@ -37,7 +37,7 @@ class Bug
         mTempoOffset = tempoOffset;
 
         mCounter = 0;
-        mCounterTarget = 60; // ??? need to initialise these values depending on grid stuff
+        mCounterTarget = calculateCounter(cell.mColor); // ??? need to initialise these values depending on grid stuff
     }
 
     PVector getInterpolatedCoordinates(int cellSize)
@@ -74,6 +74,7 @@ class Bug
         nextCell.damage();
 
         mCounter = 0;
+        mCounterTarget = calculateCounter(nextCell.mColor);
     }
 
     int calculateInitialDirection(color cellColor)
@@ -135,48 +136,48 @@ class Bug
         int xValue = int(mCurrentPosition.x);
         int yValue = int(mCurrentPosition.y);
 
-        if(newDir == 0)      // up 
+        if(newDir == UP)      // up 
         {
             if(yValue == 0)
             {
                 yValue++;
-                newDir = 2;
+                newDir = DOWN;
             }
             else
             {
                 yValue--;
             }
         }
-        else if(newDir == 1) // right
+        else if(newDir == RIGHT) // right
         {
             if(xValue == mCellGrid.mGridWidth - 1)
             {
                 xValue--;
-                newDir = 3;
+                newDir = LEFT;
             }
             else
             {
                 xValue++;
             }
         }
-        else if(newDir == 2) // down
+        else if(newDir == DOWN) // down
         {
             if(yValue == mCellGrid.mGridHeight - 1)
             {
                 yValue--;
-                newDir = 0;
+                newDir = UP;
             }
             else
             {
                 yValue++;
             }
         }
-        else if(newDir == 3) // left
+        else if(newDir == LEFT) // left
         {
             if(xValue == 0)
             {
                 xValue++;
-                newDir = 1;
+                newDir = RIGHT;
             }
             else
             {
@@ -216,5 +217,24 @@ class Bug
     int calculateStrength(int cellAverageColor)
     {
         return cellAverageColor / 16;
+    }
+
+    int calculateCounter(color cellColor)
+    {
+        int channelColor = 0;
+        if(mTempoColor == RED)
+        {
+            channelColor = (int)red(cellColor);
+        }
+        else if(mTempoColor == GREEN)
+        {
+            channelColor = (int)green(cellColor);
+        }
+        else if(mTempoColor == BLUE)
+        {
+            channelColor = (int)blue(cellColor);
+        }
+
+        return lengthToThirtySeconds((int)(channelColor / 43) + mTempoOffset) * fp32;
     }
 }
