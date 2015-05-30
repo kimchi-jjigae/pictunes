@@ -32,7 +32,7 @@ void draw()
 
     if(counter % 60 == 0)
     {
-        midiEngine.playNote(30, pianoChannel, 120);
+        midiEngine.playNote(30, pianoChannel, 12);
     }
 }
 
