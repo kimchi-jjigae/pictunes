@@ -12,9 +12,18 @@ int cellSize = 32;
 // bugs //
 ArrayList<Bug> bugs;
 
+int fps = 60;
+int bpm = 100;
+int fp32;
+
 void setup()
 {
-    ellipseMode(CORNER);
+    fp32 = round(((1.0/bpm) * 60.0f * fps)/8.0f);
+    if(fp32 < 1)
+    {
+        print("bpm is too high\n");
+        exit();
+    }
     midiEngine = new MidiEngine();
     pianoChannel = midiEngine.addChannel(GRAND_PIANO);
     marimbaChannel = midiEngine.addChannel(MARIMBA);
@@ -23,7 +32,9 @@ void setup()
     int w = (img.width  / cellSize) * cellSize; // cropping the image
     int h = (img.height / cellSize) * cellSize;
     size(w, h);
+    ellipseMode(CORNER);
     
+    frameRate(fps);
     // image stuff here //
     renderer = new Renderer();
     imageProcessor = new ImageProcessor();
@@ -38,11 +49,11 @@ void draw()
 
     if(frameCount % 60 == 0)
     {
-        midiEngine.playNote(30, pianoChannel, 12, 15);
+        midiEngine.playNote(getPitch(frameCount % 16, -1, Scales.dorian), pianoChannel, 12, 15);
     }
-    if(frameCount % 30 == 0)
+    if(frameCount % 10 == 0)
     {
-        midiEngine.playNote(46, marimbaChannel, 12, 15);
+        midiEngine.playNote(getPitch(frameCount % 16, 0, Scales.dorian), marimbaChannel, 12, 15);
     }
 
     renderer.renderCellGrid(cellGrid);
