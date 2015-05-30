@@ -19,6 +19,8 @@ class Bug
     int mTempoColor;
     int mTempoOffset;
 
+    int mLastCounter;
+
     Bug(PVector initialPosition, MidiEngine midiEngine, CellGrid cellGrid, int instrument, int octave, int pitchColor, int dirColor, int tempoColor, int tempoOffset)
     {
         mMidiEngine = midiEngine;
@@ -38,6 +40,7 @@ class Bug
 
         mCounter = 0;
         mCounterTarget = calculateCounter(cell.mColor); // ??? need to initialise these values depending on grid stuff
+        mLastCounter = mCounterTarget;
     }
 
     PVector getInterpolatedCoordinates(int cellSize)
@@ -64,17 +67,23 @@ class Bug
         mCurrentPosition = mTargetPosition;
 
         int pitchNumber = calculatePitch(nextCell.mColor);
-        int duration = calculateDuration(nextCell.mColor);
+        int duration = calculateDuration(nextCell.mNeighborDifference);
         int strength = calculateStrength(nextCell.mColorAverage);
 
         mTargetPosition = calculatePosition(nextCell.mColor, nextCell.isAlive());
 
         if(nextCell.isAlive())
-            mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
+            mMidiEngine.playNote(getPitch(pitchNumber, mOctave, theScale), mChannel, duration, strength);
         nextCell.damage();
 
         mCounter = 0;
-        mCounterTarget = calculateCounter(nextCell.mColor);
+        if(nextCell.isAlive())
+        {
+            mCounterTarget = calculateCounter(nextCell.mColor);
+            mLastCounter = mCounterTarget;
+        }
+        else
+            mCounterTarget = mLastCounter;
     }
 
     int calculateInitialDirection(color cellColor)
@@ -209,9 +218,9 @@ class Bug
         return (int)(channelColor / 4) % 16;
     }
 
-    int calculateDuration(color cellColor)
+    int calculateDuration(int neighborDiff)
     {
-        return 60; // DUMMY VALUE
+        return lengthToThirtySeconds((int)(neighborDiff / 43) + mTempoOffset) * fp32;
     }
 
     int calculateStrength(int cellAverageColor)
@@ -236,5 +245,18 @@ class Bug
         }
 
         return lengthToThirtySeconds((int)(channelColor / 43) + mTempoOffset) * fp32;
+    }
+
+    color renderColor()
+    {
+        color toReturn = 0;
+        if(mPitchColor == RED)
+            toReturn = color(178, 34, 34);
+        else if(mPitchColor == GREEN)
+            toReturn = color(34, 139, 34);
+        else if(mPitchColor == BLUE)
+            toReturn = color(70, 130, 180);
+
+        return toReturn;
     }
 }

@@ -39,7 +39,7 @@ class Renderer
         for(int i = 0; i < bugs.size(); ++i)
         {
             fill(0);
-            stroke(255);
+            stroke(bugs.get(i).renderColor());
             strokeWeight(10);
             Bug temp = bugs.get(i);
             PVector coords = temp.getInterpolatedCoordinates(cellSize);

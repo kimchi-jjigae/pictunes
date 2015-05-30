@@ -131,7 +131,7 @@ class ImageProcessor // only for processing the image, no data stored here
                 int blueDifference = (int)abs(blue(neighborColorAverage) - blue(toSetColor));
                 int totalDifference = redDifference + greenDifference + blueDifference;
 
-                int neighborDifference = (int)(((redDifference + greenDifference + blueDifference) / (3.0f)));
+                int neighborDifference = (int)((totalDifference / (3.0f)));
 
                 toSet.setExtraData(rowColumnAverageColor, neighborDifference);
             }
