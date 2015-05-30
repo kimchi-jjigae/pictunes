@@ -7,7 +7,7 @@ MidiBus myBus;
 ImageProcessor imageProcessor;
 PImage img;
 CellGrid cellGrid;
-int gridSize = 32;
+int cellSize = 32;
 
 void setup()
 {
@@ -19,7 +19,7 @@ void setup()
 
     // image stuff here //
     imageProcessor = new ImageProcessor();
-    cellGrid = imageProcessor.gridifyImage(img);
+    cellGrid = imageProcessor.gridifyImage(img, cellSize);
 }
 
 void draw()
