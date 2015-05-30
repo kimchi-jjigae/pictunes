@@ -24,7 +24,7 @@ void setup()
     }
     midiEngine = new MidiEngine();
 
-    img = loadImage("checkerboard.jpg");
+    img = loadImage("snow.jpg");
     int w = (img.width  / cellSize) * cellSize; // cropping the image
     int h = (img.height / cellSize) * cellSize;
     size(w, h);
@@ -67,7 +67,7 @@ void mouseClicked()
 {
     float x = (mouseX / cellSize);
     float y = (mouseY / cellSize);
-    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()), -1, RED, GREEN, BLUE, -1));
-    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()),  0, GREEN, BLUE, RED,  0));
-    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()), +1, BLUE, RED, GREEN, +1));
+    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, CONTRA, -1, RED, GREEN, BLUE, -1));
+    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, PIZZICATO_STRING,  0, GREEN, BLUE, RED,  0));
+    bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, HARP, +1, BLUE, RED, GREEN, +1));
 }
