@@ -47,15 +47,6 @@ void draw()
 {
     midiEngine.update();
 
-    if(frameCount % 60 == 0)
-    {
-        midiEngine.playNote(getPitch(frameCount % 16, -1, Scales.dorian), pianoChannel, 12, 15);
-    }
-    if(frameCount % 10 == 0)
-    {
-        midiEngine.playNote(getPitch(frameCount % 16, 0, Scales.dorian), marimbaChannel, 12, 15);
-    }
-
     renderer.renderCellGrid(cellGrid);
     renderer.renderBugs(bugs, cellSize);
     for(int i = 0; i < bugs.size(); ++i)

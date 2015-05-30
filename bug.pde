@@ -63,7 +63,7 @@ class Bug
 
         int pitchNumber = calculatePitch(nextCell.mColor);
         int duration = calculateDuration(nextCell.mColor);
-        int strength = calculateStrength(nextCell.mAverageColor);
+        int strength = calculateStrength(nextCell.mColorAverage);
 
         mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
         mCounter = 0;
