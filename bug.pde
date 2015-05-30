@@ -15,23 +15,26 @@ class Bug
     int mOctave;
     int mPitchColor;
     int mDirectionColor;
+    int mDirection;
     int mTempoColor;
     int mTempoOffset;
 
     Bug(PVector initialPosition, MidiEngine midiEngine, CellGrid cellGrid, int instrument, int octave, int pitchColor, int dirColor, int tempoColor, int tempoOffset)
     {
-        mChannel = midiEngine.addChannel(instrument);
-        mOctave = octave;
-        mPitchColor = pitchColor;
-        mDirectionColor = dirColor;
-        mTempoColor = tempoColor;
-        mTempoOffset = tempoOffset;
-
         mMidiEngine = midiEngine;
         mCellGrid = cellGrid;
 
         mCurrentPosition = initialPosition;
-        mTargetPosition = calculatePosition(mCellGrid.getCell((int)mCurrentPosition.x, (int)mCurrentPosition.y).mColor);
+        Cell cell = mCellGrid.getCell((int)mCurrentPosition.x, (int)mCurrentPosition.y);
+        mTargetPosition = calculatePosition(cell.mColor);
+
+        mChannel = midiEngine.addChannel(instrument);
+        mOctave = octave;
+        mPitchColor = pitchColor;
+        mDirectionColor = dirColor;
+        mDirection = calculateInitialDirection(cell.mColor);
+        mTempoColor = tempoColor;
+        mTempoOffset = tempoOffset;
 
         mCounter = 0;
         mCounterTarget = 60; // ??? need to initialise these values depending on grid stuff
@@ -63,10 +66,29 @@ class Bug
 
         int pitchNumber = calculatePitch(nextCell.mColor);
         int duration = calculateDuration(nextCell.mColor);
-        int strength = calculateStrength(nextCell.mAverageColor);
+        int strength = calculateStrength(nextCell.mColorAverage);
 
         mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
         mCounter = 0;
+    }
+
+    int calculateInitialDirection(color cellColor)
+    {
+        int channelColor = 0;
+        if(mDirectionColor == RED)
+        {
+            channelColor = (int)red(cellColor);
+        }
+        else if(mDirectionColor == GREEN)
+        {
+            channelColor = (int)green(cellColor);
+        }
+        else if(mDirectionColor == BLUE)
+        {
+            channelColor = (int)blue(cellColor);
+        }
+        
+        return channelColor % 4;
     }
 
     PVector calculatePosition(color cellColor)
@@ -84,13 +106,31 @@ class Bug
         {
             channelColor = (int)blue(cellColor);
         }
-        
-        int dir = channelColor % 4;
+
+        int turning = channelColor % 16;
+        if(turning < 5)
+        {
+            turning = FORWARD;
+        }
+        else if(turning < 10)
+        {
+            turning = LEFTWARD;
+        }
+        else if(turning < 15)
+        {
+            turning = RIGHTWARD;
+        }
+        else
+        {
+            turning = BACKWARD;
+        }
+
+        int newDir = directionAfterTurning(mDirectionColor, turning);
 
         int xValue = int(mCurrentPosition.x);
         int yValue = int(mCurrentPosition.y);
 
-        if(dir == 0)      // up 
+        if(newDir == 0)      // up 
         {
             if(yValue == 0)
             {
@@ -101,7 +141,7 @@ class Bug
                 yValue--;
             }
         }
-        else if(dir == 1) // right
+        else if(newDir == 1) // right
         {
             if(xValue == mCellGrid.mGridWidth - 1)
             {
@@ -112,7 +152,7 @@ class Bug
                 xValue++;
             }
         }
-        else if(dir == 2) // down
+        else if(newDir == 2) // down
         {
             if(yValue == mCellGrid.mGridHeight - 1)
             {
@@ -123,7 +163,7 @@ class Bug
                 yValue++;
             }
         }
-        else if(dir == 3) // left
+        else if(newDir == 3) // left
         {
             if(xValue == 0)
             {
