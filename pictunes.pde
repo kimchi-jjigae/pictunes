@@ -11,7 +11,7 @@ int cellSize = 32;
 ArrayList<Bug> bugs;
 
 int fps = 60;
-int bpm = 100;
+int bpm = 160;
 int fp32;
 
 int state;
@@ -90,9 +90,9 @@ void mouseClicked()
         case STATE_PLAY:
             float x = (mouseX / cellSize);
             float y = (mouseY / cellSize);
-            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()), -1, RED, GREEN, BLUE, -1)); // base
-            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()),  0, GREEN, BLUE, RED,  0)); // mid
-            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, instrumentFromIndex(bugs.size()), +1, BLUE, RED, GREEN, +1)); // upper
+            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, WOOD_BASS, -1, RED, GREEN, BLUE, -1)); // bass
+            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, RHODES,  0, GREEN, BLUE, RED,  0)); // mid
+            bugs.add(new Bug((new PVector(x, y)), midiEngine, cellGrid, JAZZ_GUITAR, +1, BLUE, RED, GREEN, +1)); // upper
             break;
     }
 }

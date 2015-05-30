@@ -8,6 +8,8 @@ int CONTRA = 43;
 int TREMOLO_STRING = 44;
 int PIZZICATO_STRING = 45;
 int HARP = 46;
+int JAZZ_GUITAR = 26;
+int RHODES = 4;
 
 int instrumentFromIndex(int i)
 {
@@ -42,8 +44,6 @@ int instrumentFromIndex(int i)
 //      002  Tone_000/002_Electric_Grand_Piano.pat
 //# Program  HnkyTonk (gus honky; old name: HonkeyTonk)
 //      003  Tone_000/001_Acoustic_Brite_Piano.pat
-//# Program  ElPiano1 (gus epiano1; old name: NewTines)
-//      004  Tone_000/004_Electric_Piano_1_Rhodes.pat
 //# Program  ElPiano2 (gus epiano2; old name: DigiPiano)
 //      005  Tone_000/005_Electric_Piano_2_Chorused_Yamaha_DX.pat
 //# Program  Clavi_ (gus clavinet; old name: Clav; also Clavi.)
@@ -92,8 +92,6 @@ int instrumentFromIndex(int i)
 //      024  Tone_000/024_Nylon_Guitar.pat
 //# Program  SteelGtr (gus acguitar; old name: A.Guitar)
 //      025  Tone_000/025_Steel_Guitar.pat
-//# Program  JazzGtr (gus jazzgtr; old name: JazzGuitar)
-//      026  Tone_000/026_Jazz_Guitar.pat
 //# Program  CleanGtr (gus cleangtr; old name: CleanGtr)
 //      027  Tone_000/027_Clean_Electric_Guitar.pat
 //# Program  MuteGtr (gus mutegtr; old name: MuteGuitar)
