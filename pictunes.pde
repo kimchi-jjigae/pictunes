@@ -23,6 +23,8 @@ static ArrayList<Integer> theScale;
 
 void setup()
 {
+    //selectInput("Select an image to process: ", "imageChosen");
+    setupImage();
     theScale = Scales.pentaMin;
 
     fp32 = round(((1.0/bpm) * 60.0f * fps)/8.0f);
@@ -44,7 +46,7 @@ void setup()
 //{
 //frame.setResizable(true);
 //}
-    state = STATE_MENU;
+    state = STATE_PLAY;
 
     bugs = new ArrayList<Bug>();
 }
@@ -53,17 +55,16 @@ void draw()
 {
     switch(state)
     {
-        case STATE_SPLASH:
-            background(20, 170, 100);
-            break;
-        case STATE_MENU:
-            background(80, 50, 100);
-            //renderer.renderMenuGUI(gui, imageSelected);
-            break;
-        case STATE_LOADING:
-            background(200, 170, 100);
-            setupImage();
-            break;
+        //case STATE_SPLASH:
+        //    background(20, 170, 100);
+        //    break;
+        //case STATE_MENU:
+        //    background(80, 50, 100);
+        //    //renderer.renderMenuGUI(gui, imageSelected);
+        //    break;
+        //case STATE_LOADING:
+        //    background(200, 170, 100);
+        //    break;
         case STATE_PLAY:
             image(img, 0, 0);
             midiEngine.update();
@@ -102,7 +103,7 @@ void mouseClicked()
             }
             else
             {
-                selectInput("Select an image to process: ", "imageChosen");
+               selectInput("Select an image to process: ", "imageChosen");
             }
             break;
         case STATE_LOADING:
@@ -120,7 +121,7 @@ void mouseClicked()
 
 void setupImage()
 {
-    img = loadImage(imagePath);
+    img = loadImage("image.jpg");
     int w = (img.width  / cellSize) * cellSize; // cropping the image
     int h = (img.height / cellSize) * cellSize;
     //frame.setSize(w, h);
@@ -141,4 +142,6 @@ void imageChosen(File selection)
         imagePath = selection.getAbsolutePath();
         imageSelected = true;
     }
+    setupImage();
+    state = STATE_PLAY;
 }
