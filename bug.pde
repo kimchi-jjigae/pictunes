@@ -26,7 +26,7 @@ class Bug
 
         mCurrentPosition = initialPosition;
         Cell cell = mCellGrid.getCell((int)mCurrentPosition.x, (int)mCurrentPosition.y);
-        mTargetPosition = calculatePosition(cell.mColor);
+        mTargetPosition = calculatePosition(cell.mColor, false);
 
         mChannel = midiEngine.addChannel(instrument);
         mOctave = octave;
@@ -62,13 +62,17 @@ class Bug
         Cell nextCell = mCellGrid.getCell((int)mTargetPosition.x, (int)mTargetPosition.y);
 
         mCurrentPosition = mTargetPosition;
-        mTargetPosition = calculatePosition(nextCell.mColor);
 
         int pitchNumber = calculatePitch(nextCell.mColor);
         int duration = calculateDuration(nextCell.mColor);
         int strength = calculateStrength(nextCell.mColorAverage);
 
-        mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
+        mTargetPosition = calculatePosition(nextCell.mColor, nextCell.isAlive());
+
+        if(nextCell.isAlive())
+            mMidiEngine.playNote(getPitch(pitchNumber, mOctave, Scales.dorian), mChannel, duration, strength);
+        nextCell.damage();
+
         mCounter = 0;
     }
 
@@ -91,7 +95,7 @@ class Bug
         return channelColor % 4;
     }
 
-    PVector calculatePosition(color cellColor)
+    PVector calculatePosition(color cellColor, boolean alive)
     {
         int channelColor = 0;
         if(mDirectionColor == RED)
@@ -126,6 +130,7 @@ class Bug
         }
 
         int newDir = directionAfterTurning(mDirectionColor, turning);
+        newDir = alive ? newDir : mDirection;
 
         int xValue = int(mCurrentPosition.x);
         int yValue = int(mCurrentPosition.y);
@@ -135,6 +140,7 @@ class Bug
             if(yValue == 0)
             {
                 yValue++;
+                newDir = BACKWARD;
             }
             else
             {
@@ -146,6 +152,7 @@ class Bug
             if(xValue == mCellGrid.mGridWidth - 1)
             {
                 xValue--;
+                newDir = BACKWARD;
             }
             else
             {
@@ -157,6 +164,7 @@ class Bug
             if(yValue == mCellGrid.mGridHeight - 1)
             {
                 yValue--;
+                newDir = BACKWARD;
             }
             else
             {
@@ -168,12 +176,15 @@ class Bug
             if(xValue == 0)
             {
                 xValue++;
+                newDir = BACKWARD;
             }
             else
             {
                 xValue--;
             }
         }
+
+        mDirection = newDir;
 
         return new PVector((float)xValue, (float)yValue);
     }
