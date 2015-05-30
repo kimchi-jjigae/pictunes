@@ -16,7 +16,10 @@ class Bug
 
     PVector getInterpolatedCoordinates(int cellSize)
     {
-        return new PVector(0.0f, 0.0f);
+        float percentage = counter / (float)counterTarget;
+        PVector temp = PVector.lerp(mCurrentPosition, mTargetPosition, percentage);
+        temp.mult(cellSize);
+        return temp;
     }
 
     void move()

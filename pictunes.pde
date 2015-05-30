@@ -76,7 +76,7 @@ void delay(int time) {
 
 void mouseClicked()
 {
-    int x = (mouseX / cellSize) * cellSize; // cropping the image
-    int y = (mouseY / cellSize) * cellSize;
+    int x = (mouseX / cellSize);
+    int y = (mouseY / cellSize);
     bugs.add(new Bug(new PVector((float)x, (float)y)));
 }
