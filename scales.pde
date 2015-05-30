@@ -14,7 +14,7 @@ static class Scales
         add(baseNote + 5);
         add(baseNote + 7);
         add(baseNote + 8);
-        add(baseNote + 9);
+        add(baseNote + 10);
 
         add(baseNote + 0 + 12);
         add(baseNote + 2 + 12);
@@ -22,7 +22,7 @@ static class Scales
         add(baseNote + 5 + 12);
         add(baseNote + 7 + 12);
         add(baseNote + 8 + 12);
-        add(baseNote + 9 + 12);
+        add(baseNote + 10 + 12);
 
         add(baseNote + 0 + 24);
         add(baseNote + 2 + 24);
