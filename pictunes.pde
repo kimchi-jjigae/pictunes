@@ -20,12 +20,8 @@ int state;
 GUI gui;
 
 static ArrayList<Integer> theScale;
-<<<<<<< HEAD
 //String thePath = "image2.jpg";
 String thePath = "oak.jpg";
-=======
-String thePath = "image2.jpg";
->>>>>>> 28c6f62ad76117a317e66bce3a6844e3a46fc00c
 
 void setup()
 {
