@@ -20,8 +20,12 @@ int state;
 GUI gui;
 
 static ArrayList<Integer> theScale;
+<<<<<<< HEAD
 //String thePath = "image2.jpg";
 String thePath = "oak.jpg";
+=======
+String thePath = "image2.jpg";
+>>>>>>> 28c6f62ad76117a317e66bce3a6844e3a46fc00c
 
 void setup()
 {
@@ -44,11 +48,6 @@ void setup()
     frameRate(fps);
     ellipseMode(CORNER);
     noStroke();
-    //size(640, 420);
-//if(frame != null)
-//{
-//frame.setResizable(true);
-//}
     state = STATE_PLAY;
 
     bugs = new ArrayList<Bug>();
@@ -58,16 +57,16 @@ void draw()
 {
     switch(state)
     {
-        //case STATE_SPLASH:
-        //    background(20, 170, 100);
-        //    break;
-        //case STATE_MENU:
-        //    background(80, 50, 100);
-        //    //renderer.renderMenuGUI(gui, imageSelected);
-        //    break;
-        //case STATE_LOADING:
-        //    background(200, 170, 100);
-        //    break;
+        case STATE_SPLASH:
+            background(20, 170, 100);
+            break;
+        case STATE_MENU:
+            background(80, 50, 100);
+            //renderer.renderMenuGUI(gui, imageSelected);
+            break;
+        case STATE_LOADING:
+            background(200, 170, 100);
+            break;
         case STATE_PLAY:
             image(img, 0, 0);
             midiEngine.update();
@@ -148,4 +147,18 @@ void imageChosen(File selection)
     }
     setupImage();
     state = STATE_PLAY;
+}
+
+void restartImage()
+{
+    setupImage();
+    bugs.clear();
+}
+
+void keyPressed()
+{
+    if(key == 'r' || key == 'R')
+    {
+        restartImage();
+    }
 }
